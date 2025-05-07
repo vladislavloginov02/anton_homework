@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Прошедшие Времена в Английском</title>
+    <style>
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f7; /* Apple-like light grey background */
+            color: #1d1d1f; /* Apple's primary text color */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for scrolling */
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 16px; /* Base font size */
+        }
+
+        .container {
+            background: #ffffff; /* White content background */
+            width: 100%;
+            max-width: 800px; /* Max width for content */
+            padding: 30px 40px; /* More padding */
+            border-radius: 18px; /* Apple-like rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 28px; /* Slightly larger */
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0; /* Subtle separator */
+            padding-bottom: 10px;
+        }
+
+        .instruction {
+            background-color: #f0f7ff; /* Lighter blue */
+            border-left: 3px solid #007aff; /* Apple blue */
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        .sentence, .mc-question-item, .match-question-item {
+            margin-bottom: 15px;
+            font-size: 1.05em; /* Slightly larger text for questions */
+        }
+
+        /* Input Fields */
+        input[type="text"] {
+            padding: 10px 12px;
+            border: 1px solid #d2d2d7; /* Apple-like input border */
+            border-radius: 8px;
+            margin: 0 5px;
+            width: auto;
+            min-width: 120px;
+            font-size: 1em;
+            color: #1d1d1f;
+            background-color: #f5f5f7; /* Light background for inputs */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007aff; /* Apple blue focus */
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.25);
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Correct/Incorrect Styling */
+        .correct {
+            background-color: #e6f7ec !important; /* Lighter green */
+            border-color: #5cb85c !important;
+            color: #155724;
+        }
+
+        .incorrect {
+            background-color: #ffebee !important; /* Lighter red */
+            border-color: #d32f2f !important;
+            color: #b71c1c;
+        }
+
+        input[type="text"].correct, input[type="text"].incorrect {
+             font-weight: 500;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #007aff; /* Apple blue */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #005ecb; /* Darker blue on hover */
+        }
+
+        button:disabled {
+            background-color: #d2d2d7; /* Disabled grey */
+            color: #8e8e93;
+            cursor: not-allowed;
+        }
+
+        #finishButton {
+            background-color: #34c759; /* Apple green */
+        }
+        #finishButton:hover {
+            background-color: #2ca349;
+        }
+        #finishButton:disabled {
+             background-color: #d2d2d7;
+             color: #8e8e93;
+        }
+
+
+        /* Progress Bar */
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e5e5ea; /* Lighter grey for track */
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            height: 22px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #007aff; /* Apple blue for progress */
+            text-align: center;
+            line-height: 22px;
+            color: white;
+            font-weight: 500;
+            transition: width 0.5s ease-in-out;
+            font-size: 0.9em;
+        }
+
+        /* Results Section */
+        #results {
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background-color: #f9f9f9; /* Slightly off-white */
+        }
+
+        #results h3 {
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 15px;
+        }
+        #results p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        #results p strong {
+            font-weight: 600;
+        }
+
+
+        /* Multiple Choice Styles */
+        .mc-question-item p {
+            margin-bottom: 10px; /* Space above options */
+        }
+        .mc-question-item label {
+            display: block;
+            margin-bottom: 8px;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .mc-question-item label:hover {
+            background-color: #f5f5f7;
+            border-color: #c7c7cc;
+        }
+        .mc-question-item input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #007aff; /* Apple blue for radio check */
+        }
+
+        .label-correct {
+            background-color: #e6f7ec !important;
+            border-color: #5cb85c !important;
+            color: #155724;
+            font-weight: 500;
+        }
+        .label-incorrect {
+            background-color: #ffebee !important;
+            border-color: #d32f2f !important;
+            color: #b71c1c;
+            font-weight: 500;
+        }
+        .label-show-correct {
+             border: 2px solid #34c759 !important; /* Apple green border for correct answer */
+             font-weight: 600;
+        }
+
+        /* Matching Styles */
+        .matching-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .matching-column {
+            flex: 1;
+            min-width: 250px; /* Minimum width before wrapping */
+        }
+        .matching-column strong {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .matching-column ol, .matching-column ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .matching-column li {
+            padding: 8px;
+            margin-bottom: 8px;
+            background-color: #f5f5f7;
+            border-radius: 6px;
+            border: 1px solid #e5e5ea;
+        }
+        .match-input-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            background-color: #f5f5f7;
+            border-radius: 6px;
+            padding: 8px;
+            border: 1px solid #e5e5ea;
+        }
+        .match-input-item input[type="text"] {
+            width: 40px; /* Small input for number */
+            height: 40px;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 1em;
+            background-color: #fff; /* White background for these specific inputs */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            input[type="text"], button, .mc-question-item label {
+                font-size: 0.95em; /* Slightly smaller on mobile */
+            }
+            .matching-container {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Тест: Прошедшие Времена в Английском Языке</h1>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+
+        <div class="exercise" id="exercise1" data-task-type="text">
+            <h2>Упражнение 1: Past Simple (Ввод текста)</h2>
+            <div class="instruction">
+                <strong>Инструкция:</strong> Раскройте скобки, используя глаголы в Past Simple.
+            </div>
+            <div class="sentence">1. I <input type="text" data-answer="saw"> (see) a great film last night.</div>
+            <div class="sentence">2. They <input type="text" data-answer="played"> (play) football in the park yesterday.</div>
+            <div class="sentence">3. She <input type="text" data-answer="bought"> (buy) a new dress for the party.</div>
+            <div class="sentence">4. We <input type="text" data-answer="ate"> (eat) dinner at 7 PM.</div>
+            <div class="sentence">5. He <input type="text" data-answer="wrote"> (write) a letter to his friend.</div>
+            <button onclick="checkExercise('exercise1')">Проверить Упражнение 1</button>
+        </div>
+
+        <div class="exercise" id="exercise2" data-task-type="text">
+            <h2>Упражнение 2: Past Simple - Отрицания и Вопросы</h2>
+            <div class="instruction">
+                <strong>Инструкция:</strong> Поставьте глаголы в правильную форму Past Simple (отрицательную или вопросительную).
+            </div>
+            <div class="sentence">1. She <input type="text" data-answer="didn't go"> (not go) to the party.</div>
+            <div class="sentence">2. <input type="text" data-answer="Did they visit"> (they / visit) the museum last Sunday?</div>
+            <div class="sentence">3. He <input type="text" data-answer="didn't study"> (not study) for the exam, so he failed.</div>
+            <div class="sentence">4. What <input type="text" data-answer="did you do"> (you / do) last night?</div>
+            <div class="sentence">5. Why <input type="text" data-answer="did she cry"> (she / cry) after the movie?</div>
+            <button onclick="checkExercise('exercise2')">Проверить Упражнение 2</button>
+        </div>
+
+        <div class="exercise" id="exercise3" data-task-type="mc">
+            <h2>Упражнение 3: Past Continuous (Выбор варианта)</h2>
+            <div class="instruction">
+                <strong>Инструкция:</strong> Выберите правильную форму глагола в Past Continuous.
+            </div>
+            <div class="mc-question-item">
+                <p>1. At 8 PM last night, I ___ TV.</p>
+                <label><input type="radio" name="mc3_1" value="watched"> watched</label>
+                <label><input type="radio" name="mc3_1" value="was watching" data-correct="true"> was watching</label>
+                <label><input type="radio" name="mc3_1" value="had watched"> had watched</label>
+            </div>
+            <div class="mc-question-item">
+                <p>2. What ___ you ___ at this time yesterday?</p>
+                <label><input type="radio" name="mc3_2" value="did do"> did ... do</label>
+                <label><input type="radio" name="mc3_2" value="were doing" data-correct="true"> were ... doing</label>
+                <label><input type="radio" name="mc3_2" value="had done"> had ... done</label>
+            </div>
+            <div class="mc-question-item">
+                <p>3. They ___ football when it started to rain.</p>
+                <label><input type="radio" name="mc3_3" value="played"> played</label>
+                <label><input type="radio" name="mc3_3" value="had played"> had played</label>
+                <label><input type="radio" name="mc3_3" value="were playing" data-correct="true"> were playing</label>
+            </div>
+            <div class="mc-question-item">
+                <p>4. She ___ a book while her brother was listening to music.</p>
+                <label><input type="radio" name="mc3_4" value="was reading" data-correct="true"> was reading</label>
+                <label><input type="radio" name="mc3_4" value="read"> read</label>
+                <label><input type="radio" name="mc3_4" value="had read"> had read</label>
+            </div>
+            <div class="mc-question-item">
+                <p>5. The sun ___ when I woke up.</p>
+                <label><input type="radio" name="mc3_5" value="shone"> shone</label>
+                <label><input type="radio" name="mc3_5" value="was shining" data-correct="true"> was shining</label>
+                <label><input type="radio" name="mc3_5" value="had shone"> had shone</label>
+            </div>
+            <button onclick="checkExercise('exercise3')">Проверить Упражнение 3</button>
+        </div>
+
+        <div class="exercise" id="exercise4" data-task-type="text">
+            <h2>Упражнение 4: Past Simple vs. Past Continuous</h2>
+            <div class="instruction">
+                <strong>Инструкция:</strong> Заполните пропуски, используя Past Simple или Past Continuous.
+            </div>
+            <div class="sentence">1. While I <input type="text" data-answer="was driving"> (drive) home, I saw an old friend.</div>
+            <div class="sentence">2. The phone <input type="text" data-answer="rang"> (ring) while she was cooking dinner.</div>
+            <div class="sentence">3. He <input type="text" data-answer="fell"> (fall) asleep when he was watching TV.</div>
+            <div class="sentence">4. They <input type="text" data-answer="were playing"> (play) cards when the lights suddenly went out.</div>
+            <div class="sentence">5. What <input type="text" data-answer="were you doing"> (you/do) when I called you last night?</div>
+            <button onclick="checkExercise('exercise4')">Проверить Упражнение 4</button>
+        </div>
+
+        <div class="exercise" id="exercise5" data-task-type="text">
+            <h2>Упражнение 5: Past Perfect (Ввод текста)</h2>
+            <div class="instruction">
+                <strong>Инструкция:</strong> Раскройте скобки, используя глаголы в Past Perfect (had + V3/Ved).
+            </div>
+            <div class="sentence">1. She <input type="text" data-answer="had already left"> (already / leave) by the time I arrived.</div>
+            <div class="sentence">2. He <input type="text" data-answer="had finished"> (finish) his report before the deadline.</div>
+            <div class="sentence">3. They told us they <input type="text" data-answer="had never seen"> (never / see) such a thing before.</div>
+            <div class="sentence">4. When we got to the station, the train <input type="text" data-answer="had just departed"> (just / depart).</div>
+            <div class="sentence">5. I realized I <input type="text" data-answer="had forgotten"> (forget) my keys at home.</div>
+            <button onclick="checkExercise('exercise5')">Проверить Упражнение 5</button>
+        </div>
+
+        <div class="exercise" id="exercise6" data-task-type="match">
+            <h2>Упражнение 6: Past Perfect (Соотнесение)</h2>
+            <div class="instruction">
+                <strong>Инструкция:</strong> Соотнесите начало предложения из Колонки А с его окончанием из Колонки Б. Впишите соответствующий номер из Колонки А в поле перед вариантом из Колонки Б.
+            </div>
+            <div class="matching-container">
+                <div class="matching-column">
+                    <strong>Колонка А (Начало)</strong>
+                    <ol>
+                        <li id="ex6_match_1_left">1. The film had already started</li>
+                        <li id="ex6_match_2_left">2. She couldn't buy the ticket</li>
+                        <li id="ex6_match_3_left">3. He passed the exam easily</li>
+                        <li id="ex6_match_4_left">4. They knew what to do</li>
+                        <li id="ex6_match_5_left">5. I didn't recognize him</li>
+                    </ol>
+                </div>
+                <div class="matching-column">
+                    <strong>Колонка Б (Окончание)</strong>
+                    <ul>
+                        <li class="match-input-item"><input type="text" class="match-answer" data-correct="2"> because she had forgotten her wallet.</li>
+                        <li class="match-input-item"><input type="text" class="match-answer" data-correct="5"> because he had changed so much.</li>
+                        <li class="match-input-item"><input type="text" class="match-answer" data-correct="1"> when we got to the cinema.</li>
+                        <li class="match-input-item"><input type="text" class="match-answer" data-correct="4"> because they had received clear instructions.</li>
+                        <li class="match-input-item"><input type="text" class="match-answer" data-correct="3"> because he had studied very hard for it.</li>
+                    </ul>
+                </div>
+            </div>
+            <button onclick="checkExercise('exercise6')">Проверить Упражнение 6</button>
+        </div>
+
+        <button id="finishButton" onclick="showResults()" disabled>Завершить тест</button>
+
+        <div id="results" style="display: none;">
+            <h3>Ваш результат:</h3>
+            <p id="score"></p>
+            <p id="grade"></p>
+            <p><strong>Отправь фотографию данного результата учителю.</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Общее количество упражнений
+        const totalExercises = 6; // ИЗМЕНЕНО: было 8
+        // Количество вопросов в каждом упражнении (предполагается одинаковым для всех)
+        const questionsPerExercise = 5;
+        // Общее количество вопросов для расчета процента
+        const totalQuestions = totalExercises * questionsPerExercise; // ИЗМЕНЕНО: будет 30
+
+        let correctAnswersCount = 0;
+        let exercisesCompleted = 0;
+        // Объект для отслеживания статуса выполнения каждого упражнения
+        const exercisesStatus = {};
+        for (let i = 1; i <= totalExercises; i++) { // ИЗМЕНЕНО: цикл до 6
+            exercisesStatus[`exercise${i}`] = false;
+        }
+
+        /**
+         * Нормализует строку ответа: убирает лишние пробелы и приводит к нижнему регистру.
+         * @param {string} answer - Строка ответа.
+         * @returns {string} Нормализованная строка.
+         */
+        function normalizeAnswer(answer) {
+            if (typeof answer !== 'string') return '';
+            return answer.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        /**
+         * Проверяет ответы для указанного упражнения.
+         * @param {string} exerciseId - ID HTML-элемента упражнения (например, 'exercise1').
+         */
+        function checkExercise(exerciseId) {
+            // Не проверять упражнение, если оно уже было проверено
+            if (exercisesStatus[exerciseId]) return;
+
+            const exerciseDiv = document.getElementById(exerciseId);
+            // Определяем тип задания из data-атрибута
+            const taskType = exerciseDiv.dataset.taskType;
+            let exerciseCorrectAnswersThisTime = 0; // Счетчик правильных ответов в текущем упражнении
+
+            // Логика проверки для заданий с вводом текста
+            if (taskType === 'text') {
+                const inputs = exerciseDiv.querySelectorAll('input[type="text"]');
+                inputs.forEach(input => {
+                    const userAnswer = normalizeAnswer(input.value);
+                    const correctAnswer = normalizeAnswer(input.dataset.answer);
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        exerciseCorrectAnswersThisTime++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                    }
+                    input.disabled = true; // Блокируем поле после проверки
+                });
+            }
+            // Логика проверки для заданий с выбором варианта ответа
+            else if (taskType === 'mc') {
+                const questions = exerciseDiv.querySelectorAll('.mc-question-item');
+                questions.forEach((question) => {
+                    const radios = question.querySelectorAll('input[type="radio"]');
+                    let answered = false;
+                    let choseCorrectly = false;
+                    radios.forEach(radio => {
+                        const label = radio.closest('label');
+                        if (radio.checked) {
+                            answered = true;
+                            if (radio.dataset.correct === 'true') {
+                                label.classList.add('label-correct');
+                                exerciseCorrectAnswersThisTime++;
+                                choseCorrectly = true;
+                            } else {
+                                label.classList.add('label-incorrect');
+                            }
+                        }
+                        // Если пользователь ошибся, подсвечиваем правильный ответ
+                        if (radio.dataset.correct === 'true' && (!radio.checked || !choseCorrectly) && answered) {
+                             label.classList.add('label-show-correct');
+                        }
+                        radio.disabled = true; // Блокируем радиокнопки
+                    });
+                });
+            }
+            // Логика проверки для заданий на соотнесение
+            else if (taskType === 'match') {
+                const inputs = exerciseDiv.querySelectorAll('.match-answer');
+                inputs.forEach(input => {
+                    const userAnswer = normalizeAnswer(input.value);
+                    const correctAnswer = normalizeAnswer(input.dataset.correct);
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        exerciseCorrectAnswersThisTime++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                    }
+                    input.disabled = true; // Блокируем поле
+                });
+            }
+
+            correctAnswersCount += exerciseCorrectAnswersThisTime; // Обновляем общий счетчик правильных ответов
+
+            const button = exerciseDiv.querySelector('button');
+            button.disabled = true; // Блокируем кнопку "Проверить"
+            exercisesStatus[exerciseId] = true; // Отмечаем упражнение как выполненное
+            exercisesCompleted++;
+
+            updateProgressBar(); // Обновляем прогресс-бар
+
+            // Если все упражнения выполнены, активируем кнопку "Завершить тест"
+            if (exercisesCompleted === totalExercises) {
+                document.getElementById('finishButton').disabled = false;
+            }
+        }
+
+        /**
+         * Обновляет состояние прогресс-бара.
+         */
+        function updateProgressBar() {
+            const progress = (exercisesCompleted / totalExercises) * 100;
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = Math.round(progress) + '%';
+        }
+
+        /**
+         * Отображает итоговые результаты теста.
+         */
+        function showResults() {
+            const percentage = (correctAnswersCount / totalQuestions) * 100;
+            let gradeText = '';
+
+            // Определение оценки по буквенной шкале
+            if (percentage >= 90) {
+                gradeText = 'A (Отлично)';
+            } else if (percentage >= 80) {
+                gradeText = 'B (Хорошо)';
+            } else if (percentage >= 70) {
+                gradeText = 'C (Удовлетворительно)';
+            } else if (percentage >= 60) {
+                gradeText = 'D (Посредственно)';
+            } else if (percentage >= 50) {
+                gradeText = 'E (Ниже среднего)';
+            } else {
+                gradeText = 'F (Неудовлетворительно)';
+            }
+
+            document.getElementById('score').textContent = `Правильных ответов: ${correctAnswersCount} из ${totalQuestions} (${percentage.toFixed(1)}%).`;
+            document.getElementById('grade').textContent = `Ваша оценка: ${gradeText}`;
+            document.getElementById('results').style.display = 'block'; // Показываем блок с результатами
+            document.getElementById('finishButton').disabled = true; // Блокируем кнопку "Завершить"
+        }
+    </script>
+</body>
+</html>
